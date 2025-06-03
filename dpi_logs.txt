@@ -1,0 +1,20 @@
+[2025-05-23 09:58:18.212050] THREAT DETECTED:
+POST / HTTP/1.1
+Host: 10.100.108.110:8080
+User-Agent: curl/8.5.0
+Accept: */*
+Content-Length: 52
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&comment=<script>alert('xss')</script>
+
+[2025-05-23 10:04:39.356573] THREAT DETECTED:
+POST / HTTP/1.1
+Host: 10.100.108.110:8080
+User-Agent: curl/8.5.0
+Accept: */*
+Content-Length: 16
+Content-Type: application/x-www-form-urlencoded
+
+command=rm -rf /
+

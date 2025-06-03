@@ -1,0 +1,62 @@
+{
+    "exact": [
+        "DROP TABLE",
+        "rm -rf",
+        "wget http",
+        "<script>",
+        "../etc/passwd",
+        "chmod 777",
+        "union select",
+        "eval(",
+        "cmd.exe"
+    ],
+    "regex": [
+        "(?i)union\\s+select",
+        "<script.*?>.*?</script>",
+        "(wget|curl)\\s+https?://",
+        "(?i)chmod\\s+777",
+        "\\.\\./\\.\\./"
+    ],
+    "fuzzy": [
+        "DROP TABLE IF EXISTS",
+        "rm -rf /",
+        "wget -q",
+        "<script>alert",
+        "../etc/shadow"
+    ],
+    "regex_fuzzy": [
+        "(?i)select\\s+\\*\\s+from",
+        "<script.*?>.*?alert",
+        "(wget|curl)\\s+-q\\s+https?://",
+        "(?i)chmod\\s+755",
+        "\\.\\./\\.\\./\\.\\./"
+    ],
+    "wildcard": [
+        "DROP TABLE *",
+        "rm -rf *",
+        "wget *http*",
+        "<script>*</script>",
+        "../etc/*"
+    ],
+    "regex_wildcard": [
+        "(?i)select\\s+\\*\\s+from\\s+.*",
+        "<script.*?>.*?</script>",
+        "(wget|curl)\\s+https?://.*",
+        "(?i)chmod\\s+\\d{3}",
+        "\\.\\./\\.\\./.*"
+    ],
+    "exact_fuzzy": [
+        "DELETE FROM users",
+        "mv /var/www/html/* /tmp/",
+        "curl -s http",
+        "<script>console.log",
+        "../var/log/syslog"
+    ],
+    "regex_exact_fuzzy": [
+        "(?i)insert\\s+into\\s+.*\\s+values",
+        "<script.*?>.*?console.log",
+        "(curl|wget)\\s+-s\\s+https?://",
+        "(?i)chmod\\s+644",
+        "\\.\\./\\.\\./\\.\\./\\.\\./"
+    ]
+}
