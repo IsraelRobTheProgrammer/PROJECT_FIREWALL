@@ -18,6 +18,12 @@ def rule_exists(cursor, port, protocol, action, src_ip, mac_address):
     )
     return cursor.fetchone() is not None
 
+def threat_log_exists():
+    pass
+
+
+def add_threat_log_to_db(threat_type, src_ip, method):
+    pass
 
 def add_rule_to_db(port, protocol, action, src_ip, mac_address):
     conn = connect_db()

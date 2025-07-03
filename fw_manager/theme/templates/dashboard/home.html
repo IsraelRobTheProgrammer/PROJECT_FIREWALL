@@ -1,0 +1,56 @@
+{% comment %}
+
+<h2 class="text-xl font-semibold mt-8">Blocked IPs</h2>
+<ul class="bg-white rounded p-4 shadow">
+  {% for ip in blocked_ips %}
+    <li class="border-b py-1">{{ ip.ip_address }} ({{ ip.source }})</li>
+  {% endfor %}
+</ul>
+
+<h2 class="text-xl font-semibold mt-8">Recent Threat Logs</h2>
+<div class="bg-white rounded p-4 shadow text-sm">
+  {% for log in logs %}
+    <div class="border-b py-1">
+      <strong>{{ log.source_ip }}</strong> - {{ log.method }}<br />
+      {{ log.payload|truncatechars:150 }}
+    </div>
+  {% endfor %}
+</div>
+{% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Firewall Dashboard</title>
+    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet" />
+  </head>
+
+  <body class="bg-gray-100 text-gray-900">
+    <div class="max-w-5xl mx-auto p-6">
+      <h1 class="text-3xl font-bold mb-4">Firewall Management Dashboard</h1>
+
+      <h2 class="text-xl font-semibold mt-8">Blocked IPs</h2>
+      <ul class="bg-white rounded p-4 shadow">
+        {% for ip in blocked_ips %}
+          <li class="border-b py-1">{{ ip.ip_address }} ({{ ip.reason }}) {{ ip.blocked_at }}</li>
+        {% endfor %}
+      </ul>
+
+      <h2 class="text-xl font-semibold mt-8">Recent Threat Logs</h2>
+      <div class="bg-white rounded p-4 shadow text-sm">
+        {% for log in logs %}
+          <div class="border-b py-1">
+            <strong>{{ log.source_ip }}</strong> - {{ log.method }}<br />
+            {{ log.payload|truncatechars:150 }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="mt-6 grid grid-cols-2 gap-4">
+      <a href="{% url 'list_rules' %}" class="btn">Manage Rules</a>
+      <a href="{% url 'list_applied_rules' %}" class="btn">View iptables Rules</a>
+    </div>
+  </body>
+</html>

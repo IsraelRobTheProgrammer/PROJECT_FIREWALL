@@ -1,0 +1,11 @@
+<h2 class="text-xl font-bold">Stored Firewall Rules</h2>
+<a href="{% url 'add_rule' %}" class="btn">Add Rule</a>
+<a href="{% url 'apply_rules' %}" class="btn">Apply to iptables</a>
+<ul>
+    {% for rule in rules %}
+    <li>
+        {{ rule }} |
+        <a href="{% url 'delete_rule' rule.id %}" class="text-red-600">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
