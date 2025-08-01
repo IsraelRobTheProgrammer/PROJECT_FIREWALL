@@ -11,6 +11,7 @@ def apply_default_rules():
     # 1. Set default policies
     subprocess.run(["sudo", "iptables", "-P", "INPUT", "DROP"])
     subprocess.run(["sudo", "iptables", "-P", "FORWARD", "DROP"])
+
     subprocess.run(
         ["sudo", "iptables", "-P", "OUTPUT", "ACCEPT"]
     )  # allow outbound traffic
@@ -108,6 +109,21 @@ def apply_default_rules():
             "--dport",
             "80",
             "-j",
+            "DROP",
+        ]
+    )
+
+    subprocess.run(
+        [
+            "sudo",
+            "iptables",
+            "-A",
+            "INPUT",
+            "-p",
+            "tcp",
+            "--dport",
+            "8080",
+            "-j",
             "ACCEPT",
         ]
     )
@@ -156,10 +172,6 @@ def delete_rule(rule):
         rule["action"],
     ]
     subprocess.run(cmd)
-
-
-
-
 
 
 # def apply_stateful_rules():

@@ -1,0 +1,20 @@
+LevelBlue Open Threat Exchange (OTX) is a platform that facilitates the sharing of threat intelligence among security professionals and researchers worldwide. It acts as a collaborative space where users can contribute, research, and validate threat data, ultimately strengthening defenses against evolving cyber threats. OTX also provides access to a vast repository of threat indicators and enables users to integrate this intelligence into their security systems. 
+Key purposes of LevelBlue OTX:
+Threat Intelligence Sharing:
+OTX serves as a global hub for sharing threat indicators, including IP addresses, domains, and file hashes, among a community of over 140 countries. 
+Collaborative Research:
+It fosters collaboration among security professionals, allowing them to research, validate, and discuss the latest threat trends and techniques. 
+Automated Threat Intelligence:
+OTX enables users to automate the process of updating their security infrastructure with threat data from various sources, ensuring that their systems are protected against the latest threats. 
+Integration with Security Systems:
+OTX can be integrated with various security tools and systems, such as LevelBlue USM Anywhere and OSSIM, to provide enriched threat intelligence and enhance threat detection and response capabilities. 
+Threat Hunting and Detection:
+OTX provides tools and data to support threat hunting activities, allowing users to proactively identify and respond to potential threats within their environments. 
+Free Access to Threat Intelligence:
+OTX offers free access to a vast amount of threat intelligence, making it a valuable resource for organizations of all sizes. 
+STIX/TAXII Feed:
+OTX can be used as a STIX/TAXII feed, enabling users to share threat intelligence with their own systems or customers. 
+IP Reputation:
+OTX provides IP reputation data, which can be used to identify and block malicious IP addresses. 
+Pulse Data:
+OTX provides pulse data, which represents a collection of related threat indicators, allowing users to understand the context of a threat. 

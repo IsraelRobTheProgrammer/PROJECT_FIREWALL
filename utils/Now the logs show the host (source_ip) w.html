@@ -1,0 +1,123 @@
+Now the logs show the host (source_ip) where the request is sent from but I can't seem to log the destination where its being sent to, is there a way to get the host and destination directly from the dpi even before logging it.
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Firewall Dashboard</title>
+    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet" />
+  </head>
+
+  <body class="bg-gray-100 text-gray-900">
+    <div class="max-w-5xl mx-auto p-6">
+      <h1 class="text-3xl font-bold mb-4">Firewall Management Dashboard</h1>
+
+      <h2 class="text-xl font-semibold mt-8">Blocked IPs</h2>
+      <ul class="bg-white rounded p-4 shadow">
+        {% for ip in blocked_ips %}
+          <li class="border-b py-1">{{ ip.ip_address }} ({{ ip.reason }}) {{ ip.blocked_at }}</li>
+        {% endfor %}
+      </ul>
+
+      <h2 class="text-xl font-semibold mt-8">Recent Threat Logs</h2>
+      <div class="bg-white rounded p-4 shadow text-sm">
+        {% for log in logs %}
+          <div class="border-b py-1">
+            <strong>{{ log.source_ip }}</strong> - {{ log.method }}<br />
+            {{ log.payload|truncatechars:150 }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="mt-6 grid grid-cols-2 gap-4">
+      <a href="{% url 'list_rules' %}" class="btn">Manage Rules</a>
+      <a href="{% url 'list_applied_rules' %}" class="btn">View iptables Rules</a>
+    </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">Blocked IPs</h2>
+      <ul class="space-y-2">
+        {% for ip in blocked_ips %}
+          <li class="border-b py-1">{{ ip.ip_address }} ({{ ip.source }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">Recent Threat Logs</h2>
+      <div class="space-y-2 text-sm">
+        {% for log in logs %}
+          <div class="border-b py-1">
+            <strong>{{ log.source_ip }}</strong> - {{ log.method }}<br />
+            {{ log.payload|truncatechars:150 }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="mt-8">
+    <h2 class="text-xl font-semibold mb-4">System Status</h2>
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-gray-700">All systems operational.</p>
+    </div>
+  </div>
+  <div class="mt-8">
+    <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-gray-700">No recent activity.</p>
+    </div>
+  </div>
+  <div class="mt-8">
+    <h2 class="text-xl font-semibold mb-4">Notifications</h2>
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-gray-700">No new notifications.</p>
+    </div>
+  </div>
+  <div class="mt-8">
+    <h2 class="text-xl font-semibold mb-4">Settings</h2>
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-gray-700">Configure your settings here.</p>
+    </div>
+  </div>
+  {% endblock content %}

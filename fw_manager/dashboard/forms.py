@@ -5,7 +5,18 @@ from dashboard.models import FirewallRule
 class FirewallRuleForm(forms.ModelForm):
     class Meta:
         model = FirewallRule
-        fields = ["protocol", "port", "action", "direction"]
+        fields = [
+            "name",
+            "action",
+            "protocol",
+            "source_ip",
+            "dest_ip",
+            "source_port",
+            "dest_port",
+            "port",
+            "direction",
+            "description",
+        ]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -13,6 +24,7 @@ class FirewallRuleForm(forms.ModelForm):
         port = cleaned_data.get("port")
         action = cleaned_data.get("action")
         direction = cleaned_data.get("direction")
+        description = cleaned_data.get("description")
 
         if FirewallRule.objects.filter(
             protocol=protocol, port=port, action=action, direction=direction
@@ -27,3 +39,5 @@ class FirewallRuleForm(forms.ModelForm):
             raise forms.ValidationError("Action must be either 'ACCEPT' or 'DROP'.")
         if direction not in ["INPUT", "OUTPUT"]:
             raise forms.ValidationError("Direction must be either 'INPUT' or 'OUTPUT'.")
+        if description and len(description) > 255:
+            raise forms.ValidationError("Description must be 255 characters or less.")

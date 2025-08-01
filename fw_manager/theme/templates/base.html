@@ -1,19 +1,32 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    <title>Django Tailwind</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		{% tailwind_css %}
-	</head>
+  <head>
+    <title>
+      {% block title %}
+        Firewall Dashboard
+      {% endblock %}
+    </title>
 
-	<body class="bg-gray-50 font-serif leading-normal tracking-normal">
-		<div class="container mx-auto">
-			<section class="flex items-center justify-center h-screen">
-				<h1 class="text-5xl">Django + Tailwind = ❤️</h1>
-			</section>
-		</div>
-	</body>
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet" />
+
+    <script src="{% static 'js/dist/script.js' %}"></script>
+
+    {% tailwind_css %}
+  </head>
+
+  <body class="bg-gray-50 font-serif leading-normal tracking-normal">
+    <main>
+      {% block content %}
+
+      {% endblock %}
+    </main>
+  </body>
 </html>

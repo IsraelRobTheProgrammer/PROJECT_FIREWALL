@@ -12,7 +12,9 @@ class ThreatLog(models.Model):
     source_ip = models.GenericIPAddressField()
     destination_ip = models.GenericIPAddressField()
     threat_type = models.CharField(max_length=100)
-    description = models.TextField()
+    protcol = models.CharField(
+        max_length=10, choices=[("tcp", "TCP"), ("udp", "UDP")], default="tcp"
+    )
 
     class Meta:
         verbose_name = "Threat Log"
@@ -26,7 +28,8 @@ class BlockedIP(models.Model):
     """
     Model to store blocked IP addresses.
     """
-    
+
+    source = models.CharField(max_length=50, blank=True, null=True)
     ip_address = models.GenericIPAddressField(unique=True)
     reason = models.CharField(max_length=255, blank=True, null=True)
     blocked_at = models.DateTimeField(auto_now_add=True)
@@ -44,7 +47,13 @@ class FirewallRule(models.Model):
     Model to store firewall rules.
     """
 
+    name = models.CharField(max_length=100, unique=True, default="Unnamed Rule")
     protocol = models.CharField(max_length=10, choices=[("tcp", "TCP"), ("udp", "UDP")])
+    source_ip = models.GenericIPAddressField(blank=True, null=True)
+    dest_ip = models.GenericIPAddressField(blank=True, null=True)
+    # mac_address = models.CharField(max_length=17, blank=True, null=True)  # MAC address in format XX:XX:XX:XX:XX:XX
+    source_port = models.IntegerField(blank=True, null=True)  # Optional source port
+    dest_port = models.IntegerField(blank=True, null=True)  # Optional destination port
     port = models.IntegerField()
     action = models.CharField(
         max_length=10, choices=[("ACCEPT", "ACCEPT"), ("DROP", "DROP")]
@@ -52,12 +61,20 @@ class FirewallRule(models.Model):
     direction = models.CharField(
         max_length=10, choices=[("INPUT", "INPUT"), ("OUTPUT", "OUTPUT")]
     )
+    description = models.TextField(
+        max_length=255, blank=True, null=True, default="No description added"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "Firewall Rule"
         verbose_name_plural = "Firewall Rules"
-        unique_together = ("protocol", "port", "action", "direction")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["protocol", "port", "action", "direction"],
+                name="unique_firewall_rule",
+            )
+        ]
 
     def __str__(self):
         return f"{self.direction} {self.protocol}:{self.port} {self.action}"

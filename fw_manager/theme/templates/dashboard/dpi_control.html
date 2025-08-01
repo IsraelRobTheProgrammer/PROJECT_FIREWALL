@@ -1,0 +1,72 @@
+<h2 class="text-2xl font-bold mb-4">DPI Engine Control</h2>
+
+{% if message %}
+<p class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded">{{ message }}</p>
+{% endif %}
+
+{% if running %}
+<p class="text-green-600 font-semibold">✅ DPI Engine is running</p>
+<form method="post">{% csrf_token %}
+  <button name="action" value="stop" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+    Stop DPI Engine
+  </button>
+</form>
+{% else %}
+<p class="text-red-600 font-semibold">❌ DPI Engine is stopped</p>
+<form method="post">{% csrf_token %}
+  <button name="action" value="start" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Start DPI Engine
+  </button>
+</form>
+{% endif %}
+
+<hr class="my-4">
+
+
+<h3 class="text-xl font-bold">Live DPI Logs</h3>
+<div id="log-container" class="bg-black text-green-400 p-4 rounded h-96 overflow-y-scroll font-mono">
+  <!-- Logs will load here -->
+</div>
+
+<form method="post" action="{% url 'clear_logs' %}">
+  {% csrf_token %}
+  <button class="bg-gray-600 text-white px-4 py-2 rounded mt-2 hover:bg-gray-700">Clear Logs</button>
+</form>
+
+<script src="https://unpkg.com/htmx.org@1.9.2"></script>
+<script>
+function fetchLogs() {
+  fetch("{% url 'fetch_logs' %}")
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("log-container");
+      container.innerHTML = data.logs.map(l => `<div>${l}</div>`).join("");
+      if (data.running) {
+        setTimeout(fetchLogs, 5000); // poll again in 3s if still running
+      }
+    });
+}
+fetchLogs();
+</script>
+
+{% comment %} <h2 class="text-2xl font-bold">DPI Engine Control</h2>
+
+{% if message %}
+<p class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded">{{ message }}</p>
+{% endif %}
+
+{% if running %}
+<p class="text-green-600 font-semibold">✅ DPI Engine is running</p>
+<form method="post">{% csrf_token %}
+  <button name="action" value="stop" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+    Stop DPI Engine
+  </button>
+</form>
+{% else %}
+<p class="text-red-600 font-semibold">❌ DPI Engine is stopped</p>
+<form method="post">{% csrf_token %}
+  <button name="action" value="start" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Start DPI Engine
+  </button>
+</form>
+{% endif %} {% endcomment %}

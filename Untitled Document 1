@@ -1,0 +1,15 @@
+| Component            | Technology                                 |
+| -------------------- | ------------------------------------------ |
+| Packet Filtering     | `iptables`, `conntrack`                    |
+| Packet Capture       | `Scapy` (Python library)                   |
+| Backend Language     | Python 3                                   |
+| Web Framework        | Django                                     |
+| UI Styling           | Tailwind CSS                               |
+| DBMS                 | PostgreSQL                                 |
+| API Consumption      | `requests` (for threat intelligence feeds) |
+
+
+
+4.4 Software Development Methodology
+A methodology is a formalized approach to implementing the SDLC (Software Development Life Cycle). Many organizations have chosen their own methodologies suitable for their project and project goals, for the project, the agile development methodology will be used. Agile enables iterative development, continuous feedback, and rapid adaptation to evolving security requirements. This flexibility is crucial for developing a robust next-generation firewall system, where emerging threats and technology trends can quickly influence design and functionality. 
+
