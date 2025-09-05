@@ -23,10 +23,78 @@
   </head>
 
   <body class="bg-gray-50 font-serif leading-normal tracking-normal">
-    <main>
+    {% comment %} 
+    HEADER SECTION
+    {% endcomment %}
+
+        <div class="relative flex size-full min-h-screen flex-col bg-[#111a22] dark group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+
+        {% comment %} <div class="mt-6 grid grid-cols-2 gap-4">
+      <a href="{% url 'list_rules' %}" class="btn">Manage Rules</a>
+      <a href="{% url 'list_applied_rules' %}" class="btn">View iptables Rules</a>
+    </div>
+     {% endcomment %}
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#243647] px-10 py-3">
+          <div class="flex items-center gap-4 text-white">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Firewall Manager</h2>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+              <a class="text-white text-sm font-medium leading-normal mt-1" href="{% url 'home' %}">Dashboard</a>
+              <a class="text-white text-sm font-medium leading-normal mt-1" href="{% url 'dpi_control' %}">DPI Engine</a>
+
+                  <div x-data="{ open: false }" class="relative">
+      <button @click="open = !open" class="hover:underline text-white text-sm font-medium leading-normal">Rules ▼</button>
+      <div x-show="open" @click.away="open = false"
+           class="absolute bg-white text-gray-900 mt-2 rounded shadow w-48 z-50">
+        <a href="{% url 'list_rules' %}" class="block px-4 py-2 hover:bg-gray-200">Manage Rules</a>
+        <a href="{% url 'list_applied_rules' %}" class="block px-4 py-2 hover:bg-gray-200">View System Rules</a>
+      </div>
+    </div>
+
+              {% comment %} <a class="text-white text-sm font-medium leading-normal" href="#">Rules ▼</a> {% endcomment %}
+              <form action="{% url 'logout' %}" method="post">
+               {% comment %} <a href="{% url 'logout' %}" class="text-red-400 hover:text-red text-lg leading-normal font-bold">Logout</a> {% endcomment %}
+                {% csrf_token %}
+                <button type="submit" class="text-red-400 hover:text-red text-lg leading-normal font-bold">Logout</button> 
+                {% comment %} <button type="submit" class="text-sm text-red-600">Logout</button> {% endcomment %}
+              </form>
+               {% comment %} <a href="{% url 'logout' %}" class="text-red-400 hover:text-red text-lg leading-normal font-bold">Logout</a> {% endcomment %}
+               {% comment %} <a href="{% url 'logout' %}" class="text-sm text-red-600">Logout</a> {% endcomment %}
+
+               {% comment %} <a href="{% url 'logout' %}" class="text-red-400 hover:text-red-600">Logout</a> {% endcomment %}
+              {% comment %} <a class="text-white text-sm font-medium leading-normal" href="{% url '' %}">Rules</a> {% endcomment %}
+              {% comment %} <a class="text-white text-sm font-medium leading-normal" href="#">Logs</a> {% endcomment %}
+              {% comment %} <a class="text-white text-sm font-medium leading-normal" href="#">Settings</a> {% endcomment %}
+            </div>
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUWcsQJHnOBYZ3C6gpKVVW8IJEyQfvmTGUDo-DgBi0EDEKul0Aopn5mZb4QrqcNsDmcn31DgTCunvI_vUZqUjQN2BFZgMfZqjRocCU2n1ketpLaLvnetiWBcjihKo6RHvtGgIhM0kHs6HhzLk4-3y7vmgjSde6EOmsn4_dIGvctK34JTl1CAzW71Aj1KDADqfYQ2IhShfvGrhFht9iV6pL67gl1nRUuQuiY6Iyaq4YkS0C2bXQLsQpnrDzcBYNdc_8iMP2sewjZ8zg");'
+            ></div>
+          </div>
+        </header>
+        
+
+
       {% block content %}
 
       {% endblock %}
-    </main>
-  </body>
+
+      </div>
+    </div>
+
+    </body>
+    {% comment %} <main>
+    </main> {% endcomment %}
 </html>

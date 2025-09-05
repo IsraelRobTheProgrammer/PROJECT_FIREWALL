@@ -1,7 +1,15 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
 <h2 class="text-2xl font-bold mb-4">DPI Engine Control</h2>
 
 {% if message %}
-<p class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded">{{ message }}</p>
+<div id="messageContainer"> 
+  <p class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded">{{ message }}</p>
+</div>
 {% endif %}
 
 {% if running %}
@@ -35,8 +43,8 @@
 
 <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 <script>
-function fetchLogs() {
-  fetch("{% url 'fetch_logs' %}")
+  function fetchLogs() {
+    fetch("{% url 'fetch_logs' %}")
     .then(res => res.json())
     .then(data => {
       const container = document.getElementById("log-container");
@@ -48,7 +56,17 @@ function fetchLogs() {
 }
 fetchLogs();
 </script>
+<script>
+    // Get the message container element
+    var message_ele = document.getElementById("messageContainer");
 
+    // Set a timeout to hide the messages after 3 seconds (adjust as needed)
+    setTimeout(function(){
+        if (message_ele) { // Check if the element exists before attempting to hide
+            message_ele.style.display = "none";
+        }
+    }, 3000); // 3000 milliseconds = 3 seconds
+</script>
 {% comment %} <h2 class="text-2xl font-bold">DPI Engine Control</h2>
 
 {% if message %}
@@ -67,6 +85,8 @@ fetchLogs();
 <form method="post">{% csrf_token %}
   <button name="action" value="start" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
     Start DPI Engine
-  </button>
+    </button>
 </form>
 {% endif %} {% endcomment %}
+
+    {% endblock content %}
